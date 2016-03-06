@@ -118,7 +118,7 @@ request( opts, onResponse );
 
 function onResponse( error, data ) {
 	if ( error ) {
-		throw error;
+		throw new Error( error.message );
 	}
 	console.log( data );
 }
