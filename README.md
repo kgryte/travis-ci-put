@@ -167,7 +167,6 @@ Options:
 ### Notes
 
 *	In addition to the [`token`][travis-token] option, the [token][travis-token] may also be specified by a [`TRAVISCI_TOKEN`][travis-token] environment variable. The command-line option __always__ takes precedence.
-*	Response data is written to `stdout`.
 
 
 ### Examples
