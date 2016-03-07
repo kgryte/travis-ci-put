@@ -92,7 +92,7 @@ tape( 'function throws if provided a callback argument which is not a function',
 	}
 });
 
-tape( 'function returns an error to a provided callback if an error is encountered when fetching resources', function test( t ) {
+tape( 'function returns an error to a provided callback if an error is encountered when updating resources', function test( t ) {
 	var update;
 	var opts;
 
