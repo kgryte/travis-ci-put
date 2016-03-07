@@ -19,28 +19,29 @@ var request = require( 'travis-ci-put' );
 ```
 
 <a name="request"></a>
-#### request( options, clbk )
+#### request( data, options, clbk )
 
-Updates a [Travis CI API][travis-api] resource.
+Updates a [Travis CI API][travis-api] resource. Request `data` may be proved as either a JSON `object` or a `string`.
 
 ``` javascript
-var opts = {
-	'pathname': '/hooks',
-	'data': {
-		'hook': {
-			'id': 42,
-			'active': true // enable
-		}
+var data = {
+	'hook': {
+		'id': 42,
+		'active': true // enable
 	}
 };
 
-request( opts, onResponse );
+var opts = {
+	'pathname': '/hooks'
+};
 
-function onResponse( error, data ) {
+request( data, opts, onResponse );
+
+function onResponse( error, results ) {
 	if ( error ) {
 		throw new Error( error.message );
 	}
-	console.dir( data );
+	console.dir( results );
 	/* returns 
 		{
 			"result": true
@@ -54,7 +55,6 @@ The `function` accepts the following `options`:
 *	__hostname__: endpoint hostname. Default: `'api.travis-ci.org'`.
 *	__port__: endpoint port. Default: `443` (https) or `80` (http).
 *	__pathname__: resource [pathname][travis-api]; e.g., `/repos`. Default: `'/'`.
-*	__data__: request data. May be either a JSON `object` or a `string`. Default: `''`.
 *	__token__: Travis CI [access token][travis-token].
 *	__accept__: media type. Default: `'application/vnd.travis-ci.2+json'`.
 
@@ -62,10 +62,11 @@ To [authenticate][travis-token] with an endpoint, set the [`token`][travis-token
 
 ``` javascript
 var opts = {
+	'pathname': '/hooks',
 	'token': 'tkjorjk34ek3nj4!'
 };
 
-request( opts, onResponse );
+request( data, opts, onResponse );
 ```
 
 To specify a particular resource [endpoint][travis-api], set the `pathname` option.
@@ -75,20 +76,40 @@ var opts = {
 	'pathname': '/hooks'
 };
 
-request( opts, onResponse );
+request( data, opts, onResponse );
 ```
 
-To provide request `data`, set the `data` option.
+
+#### request.factory( options, clbk )
+
+Creates a reusable `function`.
 
 ``` javascript
 var opts = {
-	'token': 'tkjorjk34ek3nj4!',
 	'pathname': '/hooks',
-	'data': '{"hook":{"id":42,"active":true}}';
+	'token': 'tkjorjk34ek3nj4!'
 };
 
-request( opts, onResponse );
+var update = request.factory( opts, onResponse );
+
+// Enable Travis on multiple repositories...
+var data = {
+	'hook': {
+		'id': 42,
+		'active': true
+	}
+};
+update( data );
+
+data.hook.id = 43;
+update( data );
+
+data.hook.id = 44;
+update( data );
+// ...
 ```
+
+The factory method accepts the same `options` as [`request()`](#request).
 
 
 ## Notes
@@ -102,25 +123,26 @@ request( opts, onResponse );
 ``` javascript
 var request = require( 'travis-ci-put' );
 
-var opts = {
-	'hostname': 'api.travis-ci.org',
-	'pathname': '/hooks',
-	'token': 'tkjorjk34ek3nj4!',
-	'data': {
-		'hook': {
-			'id': 42,
-			'active': false // disable
-		}
+var data = {
+	'hook': {
+		'id': 42,
+		'active': false // disable
 	}
 };
 
-request( opts, onResponse );
+var opts = {
+	'hostname': 'api.travis-ci.org',
+	'pathname': '/hooks',
+	'token': 'tkjorjk34ek3nj4!'
+};
 
-function onResponse( error, data ) {
+request( data, opts, onResponse );
+
+function onResponse( error, results ) {
 	if ( error ) {
 		throw new Error( error.message );
 	}
-	console.log( data );
+	console.log( results );
 }
 ```
 

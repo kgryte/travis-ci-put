@@ -2,29 +2,30 @@
 
 var request = require( './../lib' );
 
+var data = {
+	'hook': {
+		'id': 42,
+		'active': true // enable
+	}
+};
+
 var opts = {
 	'hostname': 'api.travis-ci.org',
 	'pathname': '/hooks',
-	'data': {
-		'hook': {
-			'id': 42,
-			'active': true // enable
-		}
-	},
 
 	// INSERT TOKEN HERE //
 	'token': '<your_token_goes_here>'
 };
 
-request( opts, onResponse );
+request( data, opts, onResponse );
 
 /**
-* FUNCTION: onResponse( error, data )
+* FUNCTION: onResponse( error, results )
 *	Callback invoked upon receiving a response.
 *
 * @private
 * @param {Error|Null} error - error or null
-* @param {Object[]} data - response data
+* @param {Object} results - response results
 * @returns {Void}
 */
 function onResponse( error, data ) {

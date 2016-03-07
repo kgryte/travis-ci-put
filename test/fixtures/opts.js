@@ -4,8 +4,7 @@ function getOpts() {
 	var opts = {
 		'hostname': 'api.travis-ci.org',
 		'port': 443,
-		'protocol': 'https',
-		'data': ''
+		'protocol': 'https'
 	};
 	return opts;
 }

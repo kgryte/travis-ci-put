@@ -11,6 +11,7 @@ var query = require( './../lib/query.js' );
 
 var getOpts = require( './fixtures/opts.js' );
 var results = require( './fixtures/results.json' );
+var data = '{"hook":{"id":42,"active":true}}';
 
 
 // TESTS //
@@ -29,7 +30,7 @@ tape( 'function returns an error to a provided callback if an error is encounter
 	});
 
 	opts = getOpts();
-	query( opts, done );
+	query( data, opts, done );
 
 	function request( opts, data, clbk ) {
 		setTimeout( onTimeout, 0 );
@@ -57,7 +58,7 @@ tape( 'function returns response data to a provided callback', function test( t 
 	expected = results;
 
 	opts = getOpts();
-	query( opts, done );
+	query( data, opts, done );
 
 	function request( opts, data, clbk ) {
 		setTimeout( onTimeout, 0 );
