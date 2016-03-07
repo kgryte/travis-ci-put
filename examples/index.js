@@ -28,9 +28,9 @@ request( data, opts, onResponse );
 * @param {Object} results - response results
 * @returns {Void}
 */
-function onResponse( error, data ) {
+function onResponse( error, results ) {
 	if ( error ) {
 		throw new Error( error.message );
 	}
-	console.log( data );
+	console.log( results );
 }
