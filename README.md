@@ -21,7 +21,7 @@ var request = require( 'travis-ci-put' );
 <a name="request"></a>
 #### request( data, options, clbk )
 
-Updates a [Travis CI API][travis-api] resource. Request `data` may be proved as either a JSON `object` or a `string`.
+Updates a [Travis CI API][travis-api] resource. Request `data` may be provided as either a JSON `object` or a `string`.
 
 ``` javascript
 var data = {
